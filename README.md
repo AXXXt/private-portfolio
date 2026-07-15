@@ -2,7 +2,7 @@
 
 网络工程 2026 届毕业生。用个人网站代替传统简历——4 个核心项目可在线体验，AI 蒸馏体可实时对话。
 
-**线上地址：** https://private-portfolio.vercel.app（替换为你的实际域名）
+**线上地址：** https://private-portfolio-ngyl.vercel.app/#projects（替换为你的实际域名）
 
 ---
 
