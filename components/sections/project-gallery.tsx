@@ -219,13 +219,7 @@ export function ProjectGallery() {
                       ) : (
                         <span className="text-[10px] uppercase tracking-[0.35em] text-white/25">{isFannedOut && !project.repo ? "Tap to Flip" : ""}</span>
                       )}
-                    </div>
-                          <ExternalLink className="h-3.5 w-3.5" />查看详情
-                        </a>
-                      ) : (
-                        <span className="text-[10px] uppercase tracking-[0.35em] text-white/25">{isFannedOut && !project.repo ? "Tap to Flip" : ""}</span>
-                      )}
-                    </div>
+                  </div>
                   </div>
                 </article>
               );
