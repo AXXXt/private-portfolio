@@ -1,7 +1,7 @@
 ﻿"use client";
 
 import { type FormEvent, useCallback, useEffect, useRef, useState } from "react";
-import { ArrowLeftToLine, Bot, Fingerprint, Layers, LockKeyhole, Send, Sparkles, X } from "lucide-react";
+import { ArrowLeftToLine, Bot, ExternalLink, Fingerprint, Layers, LockKeyhole, Send, Sparkles, X } from "lucide-react";
 import { gsap } from "gsap";
 import { useGSAP } from "@gsap/react";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -9,15 +9,15 @@ gsap.registerPlugin(useGSAP, ScrollTrigger);
 
 /* Types */
 type ProjectTone = "cyan" | "fuchsia";
-type ProjectItem = { id: number; title: string; shortTitle: string; subtitle: string; description: string; tone: ProjectTone; tags: string[]; bullets: string[]; cta: string; isAI?: boolean };
+type ProjectItem = { id: number; title: string; shortTitle: string; subtitle: string; description: string; tone: ProjectTone; tags: string[]; bullets: string[]; cta: string; isAI?: boolean; repo?: string };
 type AuthStatus = "idle" | "error" | "success";
 
 /* Data */
 const PROJECTS: readonly ProjectItem[] = [
-  { id: 1, title: "微信小程序全栈热火锅点餐与店铺管理系统", shortTitle: "热火锅全栈系统", subtitle: "微信小程序 + Web 后台管理系统 + Node.js 驱动后端", description: "围绕点餐、店铺管理、库存联动和运营后台构建完整闭环，强调真实业务链路里的数据一致性、后台可维护性与小程序体验交付。", tone: "cyan", tags: ["Node.js", "Express", "MySQL", "Miniprogram", "Admin"], bullets: ["小程序点餐链路与订单状态管理", "Web 后台店铺、菜品与库存维护", "Node.js API 分层与数据库建模", "面向门店运营的高频操作体验优化"], cta: "查看详情" },
-  { id: 2, title: "开源贡献：校园小情书", shortTitle: "校园小情书", subtitle: "优化部署与微信小程序独立深度开发", description: "在开源协作语境下完成部署优化、微信小程序深度开发和体验修补，把零散问题收束为可交付、可维护、可持续迭代的产品状态。", tone: "fuchsia", tags: ["Open Source", "Deployment", "Miniprogram", "Performance"], bullets: ["部署链路优化与环境问题收敛", "微信小程序模块独立开发", "性能与交互细节打磨", "基于开源项目的协作交付能力"], cta: "查看详情" },
+  { id: 1, title: "微信小程序全栈热火锅点餐与店铺管理系统", shortTitle: "热火锅全栈系统", subtitle: "微信小程序 + Web 后台管理系统 + Node.js 驱动后端", description: "围绕点餐、店铺管理、库存联动和运营后台构建完整闭环，强调真实业务链路里的数据一致性、后台可维护性与小程序体验交付。", tone: "cyan", tags: ["Node.js", "Express", "MySQL", "Miniprogram", "Admin"], bullets: ["小程序点餐链路与订单状态管理", "Web 后台店铺、菜品与库存维护", "Node.js API 分层与数据库建模", "面向门店运营的高频操作体验优化"], cta: "查看详情", repo: "https://github.com/AXXXt/hot-pot-sales-system" },
+  { id: 2, title: "项目：心相近 · 校园论坛小程序", shortTitle: "心相近", subtitle: "组件化重构与安全合规优化", description: "主导代码重构与性能优化，前端资源体积缩减40%+，集成敏感词过滤与多级角色权限控制。覆盖首屏渲染、CDN缓存和内容安全等关键链路。", tone: "fuchsia", tags: ["微信小程序", "组件化重构", "安全合规", "性能优化"], bullets: ["代码重构与组件化模块拆分", "前端资源体积缩减 40%+", "敏感词过滤与角色权限控制", "首屏懒加载与 CDN 缓存优化"], cta: "查看详情" },
   { id: 3, title: "AI Digital Clone \u00b7 Stariver蒸馏体", shortTitle: "Stariver蒸馏体", subtitle: "带邀请码鉴权机制的安全合规 AI 智能体", description: "把个人履历、项目能力和安全边界蒸馏成可交互的 AI 面试助手。可以回答能力画像与项目理解，但会主动规避隐私、凭证和不可公开信息。", tone: "cyan", tags: ["AI Agent", "Auth Gate", "Typewriter", "Security Sandbox", "Next.js"], bullets: ["邀请码 AN2026 本地鉴权解锁", "HR 预设问题一键触发能力评估", "安全沙盒拒绝输出敏感隐私", "极客终端式流式回答体验"], cta: "连接智能体", isAI: true },
-  { id: 4, title: "AI 日程助手 · 跨端移动应用", shortTitle: "AI 日程助手", subtitle: "Expo + React Native · Android/iOS 跨端作品", description: "把一句模糊的生活安排转化为可确认的日程和可执行的行动方案。自然语言解析 → AI 结构化确认 → 生成时间线与准备清单 → 日历闭环。", tone: "fuchsia", tags: ["React Native", "Expo", "TypeScript", "AI", "Jest"], bullets: ["自然语言解析日程并结构化确认", "按类型生成时间线、清单与风险建议", "41 个 Jest 测试用例全部通过", "Android APK 可直接安装体验"], cta: "查看详情" },
+  { id: 4, title: "AI 日程助手 · 跨端移动应用", shortTitle: "AI 日程助手", subtitle: "Expo + React Native · Android/iOS 跨端作品", description: "把一句模糊的生活安排转化为可确认的日程和可执行的行动方案。自然语言解析 → AI 结构化确认 → 生成时间线与准备清单 → 日历闭环。", tone: "fuchsia", tags: ["React Native", "Expo", "TypeScript", "AI", "Jest"], bullets: ["自然语言解析日程并结构化确认", "按类型生成时间线、清单与风险建议", "41 个 Jest 测试用例全部通过", "Android APK 可直接安装体验"], cta: "查看详情", repo: "https://github.com/AXXXt/ai-schedule-assistant" },
 ];
 
 
@@ -211,8 +211,20 @@ export function ProjectGallery() {
                         ))}
                       </div>
                     </div>
-                    <div className="relative text-center">
-                      <span className="text-[10px] uppercase tracking-[0.35em] text-white/25">{isFannedOut ? "Tap to Decrypt" : ""}</span>
+                      <div className="relative text-center">
+                      {isFannedOut && project.repo ? (
+                        <a href={project.repo} target="_blank" rel="noopener noreferrer" onClick={e => e.stopPropagation()} className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.05] px-4 py-2 text-xs font-semibold uppercase tracking-[0.2em] text-white/60 backdrop-blur-sm transition-all hover:border-white/25 hover:bg-white/[0.1] hover:text-white">
+                          <ExternalLink className="h-3.5 w-3.5" />查看详情
+                        </a>
+                      ) : (
+                        <span className="text-[10px] uppercase tracking-[0.35em] text-white/25">{isFannedOut && !project.repo ? "Tap to Flip" : ""}</span>
+                      )}
+                    </div>
+                          <ExternalLink className="h-3.5 w-3.5" />查看详情
+                        </a>
+                      ) : (
+                        <span className="text-[10px] uppercase tracking-[0.35em] text-white/25">{isFannedOut && !project.repo ? "Tap to Flip" : ""}</span>
+                      )}
                     </div>
                   </div>
                 </article>
