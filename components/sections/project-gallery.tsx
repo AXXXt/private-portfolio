@@ -17,6 +17,7 @@ const PROJECTS: readonly ProjectItem[] = [
   { id: 1, title: "微信小程序全栈热火锅点餐与店铺管理系统", shortTitle: "热火锅全栈系统", subtitle: "微信小程序 + Web 后台管理系统 + Node.js 驱动后端", description: "围绕点餐、店铺管理、库存联动和运营后台构建完整闭环，强调真实业务链路里的数据一致性、后台可维护性与小程序体验交付。", tone: "cyan", tags: ["Node.js", "Express", "MySQL", "Miniprogram", "Admin"], bullets: ["小程序点餐链路与订单状态管理", "Web 后台店铺、菜品与库存维护", "Node.js API 分层与数据库建模", "面向门店运营的高频操作体验优化"], cta: "查看详情" },
   { id: 2, title: "开源贡献：校园小情书", shortTitle: "校园小情书", subtitle: "优化部署与微信小程序独立深度开发", description: "在开源协作语境下完成部署优化、微信小程序深度开发和体验修补，把零散问题收束为可交付、可维护、可持续迭代的产品状态。", tone: "fuchsia", tags: ["Open Source", "Deployment", "Miniprogram", "Performance"], bullets: ["部署链路优化与环境问题收敛", "微信小程序模块独立开发", "性能与交互细节打磨", "基于开源项目的协作交付能力"], cta: "查看详情" },
   { id: 3, title: "AI Digital Clone \u00b7 Stariver蒸馏体", shortTitle: "Stariver蒸馏体", subtitle: "带邀请码鉴权机制的安全合规 AI 智能体", description: "把个人履历、项目能力和安全边界蒸馏成可交互的 AI 面试助手。可以回答能力画像与项目理解，但会主动规避隐私、凭证和不可公开信息。", tone: "cyan", tags: ["AI Agent", "Auth Gate", "Typewriter", "Security Sandbox", "Next.js"], bullets: ["邀请码 AN2026 本地鉴权解锁", "HR 预设问题一键触发能力评估", "安全沙盒拒绝输出敏感隐私", "极客终端式流式回答体验"], cta: "连接智能体", isAI: true },
+  { id: 4, title: "AI 日程助手 · 跨端移动应用", shortTitle: "AI 日程助手", subtitle: "Expo + React Native · Android/iOS 跨端作品", description: "把一句模糊的生活安排转化为可确认的日程和可执行的行动方案。自然语言解析 → AI 结构化确认 → 生成时间线与准备清单 → 日历闭环。", tone: "fuchsia", tags: ["React Native", "Expo", "TypeScript", "AI", "Jest"], bullets: ["自然语言解析日程并结构化确认", "按类型生成时间线、清单与风险建议", "41 个 Jest 测试用例全部通过", "Android APK 可直接安装体验"], cta: "查看详情" },
 ];
 
 
@@ -60,10 +61,10 @@ export function ProjectGallery() {
   /* Stage 1: Stack <-> Fan */
   useGSAP(() => {
     const cards = cardsRef.current.filter(isHTMLElement);
-    if (cards.length !== 3) return;
+    if (cards.length !== 4) return;
     gsap.killTweensOf(cards);
     if (isFannedOut) {
-      gsap.to(cards, { x: i => [-240, 0, 240][i], rotateZ: i => [-6, 0, 6][i], rotateY: 0, scale: 1, autoAlpha: 1, duration: 0.6, ease: "back.out(1.4)", willChange: "transform, opacity", onComplete: () => gsap.set(cards, { willChange: "auto" }) });
+      gsap.to(cards, { x: i => [-360, -120, 120, 360][i], rotateZ: i => [-6, -2, 2, 6][i], rotateY: 0, scale: 1, autoAlpha: 1, duration: 0.6, ease: "back.out(1.4)", willChange: "transform, opacity", onComplete: () => gsap.set(cards, { willChange: "auto" }) });
     } else {
       gsap.to(cards, { x: 0, rotateZ: 0, rotateY: 0, scale: 0.95, duration: 0.5, ease: "power3.inOut", willChange: "transform", onComplete: () => gsap.set(cards, { willChange: "auto" }) });
     }
